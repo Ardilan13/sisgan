@@ -4,9 +4,15 @@ import { NavLink } from "react-router-dom";
 
 export default function Register() {
   const navigate = useNavigate();
+  const [selectedFileName, setSelectedFileName] = useState<string>("");
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files ? e.target.files[0] : null;
+    setSelectedFileName(selectedFile ? selectedFile.name : "");
+  };
+
   const [formData, setFormData] = useState({
     finca: "",
-    marca: "",
     cedula: "",
     licencia: "",
     ica: "",
@@ -32,7 +38,6 @@ export default function Register() {
 
     const {
       finca,
-      marca,
       cedula,
       licencia,
       ica,
@@ -46,7 +51,6 @@ export default function Register() {
     } = formData;
     if (
       !finca ||
-      !marca ||
       !cedula ||
       !licencia ||
       !ica ||
@@ -106,14 +110,20 @@ export default function Register() {
               placeholder="Nombre de la finca"
               onChange={handleInputChange}
             />
-            <input
-              className="w-full py-2 px-6 rounded-md bg-secondary-100"
-              type="text"
-              name="marca"
-              value={formData.marca}
-              placeholder="Marca"
-              onChange={handleInputChange}
-            />
+            <div className="w-full flex gap-6">
+              <label
+                htmlFor="fileInput"
+                className="w-full py-2 px-6 rounded-md bg-secondary-100 cursor-pointer"
+              >
+                {selectedFileName || "Marca"}
+              </label>
+              <input
+                id="fileInput"
+                type="file"
+                className="hidden"
+                onChange={handleFileInputChange}
+              />
+            </div>
           </div>
           <hr className="bg-secondary-100 w-full h-0.5" />
           <p>Datos de Identificacion</p>

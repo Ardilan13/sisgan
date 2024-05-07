@@ -8,12 +8,9 @@ export default function Header() {
   };
 
   return (
-    <header className="flex px-8 py-2 bg-white justify-between">
-      <div className="flex items-center gap-x-2">
-        <img src="/logo.jpeg" className="w-8" alt="logo sisgan" />
-        <h1 className="font-bold text-3xl">SISGAN</h1>
-      </div>
-      <div className="w-96">
+    <header className="flex px-8 py-2 bg-white justify-between gap-x-52">
+      <div className="w-30 text-white">t</div>
+      <div className="flex-grow">
         <input
           className="w-full py-2 px-6 rounded-md bg-secondary-100"
           type="text"
