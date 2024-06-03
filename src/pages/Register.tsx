@@ -1,10 +1,18 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import Notification from "../components/Notification";
+import Loading from "../components/Loading";
 
 export default function Register() {
   const navigate = useNavigate();
   const [selectedFileName, setSelectedFileName] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState({
+    message: "",
+    color: "",
+  });
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
@@ -70,20 +78,40 @@ export default function Register() {
       return;
     }
 
+    setLoading(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      setAlert("");
+      setNotificationMessage({
+        message:
+          "Registro exitoso, redirigiendo a la pagina de inicio de sesion...",
+        color: "success",
+      });
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (error) {
-      console.error("Error al enviar datos:", error);
-      setAlert("Error al registrar, por favor inténtalo de nuevo");
+      setNotificationMessage({
+        message: "An error occurred: " + error,
+        color: "error",
+      });
+    } finally {
+      setShowNotification(true);
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex justify-center items-center h-screen">
+      {showNotification && (
+        <Notification
+          message={notificationMessage.message}
+          color={notificationMessage.color}
+        />
+      )}
       <div className="flex flex-col justify-center items-center p-8 bg-white rounded-md gap-2">
         <div className="flex w-full gap-20">
           <div className="flex w-full flex-col">
