@@ -1,6 +1,10 @@
 import Create from "../components/Create";
+import { useLocation } from "react-router-dom";
 
 export default function RegistrarUsuario() {
+  const location = useLocation();
+  const { data, isEdit } = location.state || {};
+
   const fields = [
     { name: "Nombre de la finca", type: "text" },
     { name: "Marca", type: "file" },
@@ -16,6 +20,11 @@ export default function RegistrarUsuario() {
     { name: "Confirmar contraseña", type: "password" },
   ];
   return (
-    <Create fieldConfigurations={fields} endpoint={"/usuario/registrar"} />
+    <Create
+      fieldConfigurations={fields}
+      endpoint={"/usuario/registrar"}
+      initialData={data}
+      isEdit={isEdit}
+    />
   );
 }

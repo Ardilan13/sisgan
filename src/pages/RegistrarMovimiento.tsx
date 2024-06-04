@@ -1,6 +1,10 @@
 import Create from "../components/Create";
+import { useLocation } from "react-router-dom";
 
 export default function RegistrarMovimiento() {
+  const location = useLocation();
+  const { data, isEdit } = location.state || {};
+
   const fields = [
     { name: "Origen", type: "text" },
     { name: "Destino", type: "text" },
@@ -12,6 +16,11 @@ export default function RegistrarMovimiento() {
     { name: "Firma del funcionario del ICA", type: "file" },
   ];
   return (
-    <Create fieldConfigurations={fields} endpoint={"/movimiento/registrar"} />
+    <Create
+      fieldConfigurations={fields}
+      endpoint={"/movimiento/registrar"}
+      initialData={data}
+      isEdit={isEdit}
+    />
   );
 }

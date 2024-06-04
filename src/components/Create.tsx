@@ -13,15 +13,19 @@ interface FieldConfiguration {
 interface CreateFormProps {
   fieldConfigurations: FieldConfiguration[];
   endpoint: string;
+  initialData?: { [key: string]: any };
+  isEdit?: boolean;
 }
 
 const CreateForm: React.FC<CreateFormProps> = ({
   fieldConfigurations,
   endpoint,
+  initialData = {},
+  isEdit = false,
 }) => {
   const initialFormState = fieldConfigurations.reduce((acc, field) => {
     if (field.type !== "file") {
-      acc[field.name] = "";
+      acc[field.name] = initialData[field.name] || "";
     }
     return acc;
   }, {} as { [key: string]: any });
@@ -51,7 +55,9 @@ const CreateForm: React.FC<CreateFormProps> = ({
     setLoading(true);
     console.log("formData", formData);
     try {
-      const response = await ApiService.post(endpoint, formData);
+      const response = isEdit
+        ? await ApiService.put(`${endpoint}/${formData.id}`, formData)
+        : await ApiService.post(endpoint, formData);
       console.log("Response:", response);
       setNotificationMessage({
         message: "Operation successful! " + response.data.message,
@@ -143,7 +149,7 @@ const CreateForm: React.FC<CreateFormProps> = ({
           type="submit"
           className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
         >
-          Registrar
+          {isEdit ? "Actualizar" : "Registrar"}
         </button>
       </div>
     </form>

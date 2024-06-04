@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface TableProps {
   data: Array<{ [key: string]: any }>;
@@ -8,6 +8,7 @@ interface TableProps {
 }
 
 export default function Table({ data = [], link }: TableProps) {
+  const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [allSelected, setAllSelected] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -42,8 +43,9 @@ export default function Table({ data = [], link }: TableProps) {
     }
   };
 
-  const handleEdit = (index: number) => {
-    console.log(`Edit row ${index}`);
+  const handleEdit = (rowData: { [key: string]: any }) => {
+    console.log("Edit row", rowData);
+    navigate(link, { state: { data: rowData, isEdit: true } });
   };
 
   const handleDelete = (index: number) => {
@@ -181,7 +183,7 @@ export default function Table({ data = [], link }: TableProps) {
                   ))}
                   <td className="px-6 py-3 whitespace-nowrap">
                     <button
-                      onClick={() => handleEdit(startIndex + rowIndex)}
+                      onClick={() => handleEdit(row)}
                       className="px-4 py-3 bg-blue text-white rounded-md hover:bg-sky-400 mr-2"
                     >
                       <svg
