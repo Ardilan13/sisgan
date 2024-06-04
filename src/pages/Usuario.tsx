@@ -45,5 +45,5 @@ export default function Usuario() {
     { id: 41, name: "Alan Gonzalez", email: "alan.gonzalez@example.com" },
   ];
 
-  return <Table data={sampleData} />;
+  return <Table data={sampleData} link={"/registrar-usuario"} />;
 }

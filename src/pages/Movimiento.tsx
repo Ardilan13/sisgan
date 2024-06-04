@@ -36,7 +36,7 @@ export default function Movimiento() {
           color={notificationMessage.color}
         />
       )}
-      <Table data={dataTable} />
+      <Table data={dataTable} link={"/registrar-movimiento"} />
     </>
   );
 }

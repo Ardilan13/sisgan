@@ -36,7 +36,7 @@ export default function Ganado() {
           color={notificationMessage.color}
         />
       )}
-      <Table data={dataTable} />
+      <Table data={dataTable} link={"/registrar-ganado"} />
     </div>
   );
 }
