@@ -5,7 +5,7 @@ import Table from "../components/Table";
 import Notification from "../components/Notification";
 
 export default function Ganado() {
-  const { data, loading, error } = FetchData("/health/say-hello");
+  const { data, loading, error } = FetchData("/cattle/all");
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState({
     message: "",
@@ -27,6 +27,7 @@ export default function Ganado() {
   }
 
   const dataTable = data ? data : [];
+  console.log(data);
 
   return (
     <div>
@@ -36,7 +37,11 @@ export default function Ganado() {
           color={notificationMessage.color}
         />
       )}
-      <Table data={dataTable} link={"/registrar-ganado"} />
+      <Table
+        data={dataTable}
+        link={"/registrar-ganado"}
+        del={"/cattle/delete"}
+      />
     </div>
   );
 }

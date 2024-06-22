@@ -9,17 +9,17 @@ export default function RegistrarMovimiento() {
     { name: "origin", label: "Origen", type: "text" },
     { name: "destination", label: "Destino", type: "text" },
     { name: "applicationDate", label: "Fecha de aplicación", type: "date" },
-    { name: "mobilizationDate", label: "Fecha de movilización", type: "date" },
+    { name: "movementDate", label: "Fecha de movilización", type: "date" },
     { name: "vehiclePlate", label: "Placa del vehículo", type: "text" },
     { name: "transporterID", label: "Identificación del transportador", type: "number" },
-    { name: "applicantSignature", label: "Firma del solicitante", type: "file" },
+    { name: "signaturePetitioner", label: "Firma del solicitante", type: "file" },
     { name: "ICAofficialSignature", label: "Firma del funcionario del ICA", type: "file" },
   ];
   
   return (
     <Create
       fieldConfigurations={fields}
-      endpoint={"/movimiento/registrar"}
+      endpoint={"/internal-movement-guide"}
       initialData={data}
       isEdit={isEdit}
     />

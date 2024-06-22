@@ -42,11 +42,11 @@ class ApiService {
   }
 
   public put(endpoint: string, data: any) {
-    return this.request(endpoint, "PUT", data);
+    return this.request(endpoint, "PATCH", data);
   }
 
-  public delete(endpoint: string) {
-    return this.request(endpoint, "DELETE");
+  public delete(endpoint: string, data: any) {
+    return this.request(endpoint, "DELETE", data);
   }
 }
 

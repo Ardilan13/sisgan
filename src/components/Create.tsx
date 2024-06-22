@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ApiService from "../api/ApiService";
 import Loading from "./Loading";
 import Notification from "./Notification";
@@ -8,7 +8,7 @@ interface FieldConfiguration {
   name: string;
   label: string;
   type: string;
-  options?: string[];
+  options?: { label: string; value: string }[];
 }
 
 interface CreateFormProps {
@@ -46,6 +46,14 @@ const CreateForm: React.FC<CreateFormProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+    if (name === "transporterID") {
+      setFormData({
+        ...formData,
+        [name]: value,
+        transporter: { id: value },
+      });
+      return;
+    }
     setFormData({
       ...formData,
       [name]: value,
@@ -54,15 +62,15 @@ const CreateForm: React.FC<CreateFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form data:", formData);
     setLoading(true);
-    console.log("formData", formData);
     try {
       const response = isEdit
         ? await ApiService.put(`${endpoint}/${formData.id}`, formData)
         : await ApiService.post(endpoint, formData);
       console.log("Response:", response);
       setNotificationMessage({
-        message: "Operation successful! " + response.data.message,
+        message: "Operation successful!",
         color: "success",
       });
     } catch (error) {
@@ -80,6 +88,12 @@ const CreateForm: React.FC<CreateFormProps> = ({
     setFormData(initialFormState);
   };
 
+  useEffect(() => {
+    if (isEdit && initialData.id) {
+      setFormData(initialData);
+    }
+  }, []);
+
   if (loading) {
     return <Loading />;
   }
@@ -94,6 +108,11 @@ const CreateForm: React.FC<CreateFormProps> = ({
       )}
       <h2 className="text-2xl font-bold text-gray-500 mb-4">{description}</h2>
       <div className="grid grid-cols-2 gap-4">
+        {isEdit && initialData.id ? (
+          <input hidden name="id" type="number" defaultValue={initialData.id} />
+        ) : (
+          <></>
+        )}
         {fieldConfigurations.map((field) => (
           <div key={field.name} className="w-full mb-4">
             {field.type === "select" ? (
@@ -109,8 +128,8 @@ const CreateForm: React.FC<CreateFormProps> = ({
                   Seleccione {field.label.toLowerCase()}
                 </option>
                 {field.options?.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
+                  <option key={option.value} value={option.value}>
+                    {option.label}
                   </option>
                 ))}
               </select>

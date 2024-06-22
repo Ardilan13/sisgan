@@ -72,9 +72,9 @@ export default function Login() {
           <div className="w-full">
             <input
               className="w-full py-2 px-6 rounded-md bg-secondary-100"
-              type="text"
+              type="email"
               value={username}
-              placeholder="Cedula de ciudadania"
+              placeholder="Correo Electronico"
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
