@@ -3,13 +3,22 @@ class ApiService {
   private baseUrl: string;
 
   constructor() {
-    this.baseUrl = "http://localhost:8080";
+    this.baseUrl = "https://sisback5.azurewebsites.net";
+  }
+
+  private getToken() {
+    return sessionStorage.getItem("token");
   }
 
   private async request(endpoint: string, method: string = "GET", body?: any) {
-    const headers = {
+    const headers: HeadersInit = {
       "Content-Type": "application/json",
     };
+
+    const token = this.getToken();
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
 
     const response = await fetch(`${this.baseUrl}${endpoint}`, {
       method,
