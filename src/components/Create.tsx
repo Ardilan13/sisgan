@@ -6,6 +6,7 @@ import Notification from "./Notification";
 
 interface FieldConfiguration {
   name: string;
+  label: string;
   type: string;
   options?: string[];
 }
@@ -37,6 +38,7 @@ const CreateForm: React.FC<CreateFormProps> = ({
     message: "",
     color: "",
   });
+
   const description =
     "Datos del " + endpoint.split("/")[1].replace(/-/g, " ").toLowerCase();
 
@@ -104,7 +106,7 @@ const CreateForm: React.FC<CreateFormProps> = ({
                 className="w-full py-2 px-6 rounded-md bg-secondary-100"
               >
                 <option value="" disabled>
-                  Seleccione {field.name.toLowerCase()}
+                  Seleccione {field.label.toLowerCase()}
                 </option>
                 {field.options?.map((option) => (
                   <option key={option} value={option}>
@@ -114,11 +116,12 @@ const CreateForm: React.FC<CreateFormProps> = ({
               </select>
             ) : field.type === "file" ? (
               <input
+                name={field.name}
                 onFocus={(e) =>
                   field.type === "file" && (e.target.type = "file")
                 }
                 type={field.type === "file" ? "text" : field.type}
-                placeholder={field.name.replace(/-/g, " ")}
+                placeholder={field.label}
                 className="w-full py-2 px-6 rounded-md bg-secondary-100"
               />
             ) : (
@@ -126,7 +129,7 @@ const CreateForm: React.FC<CreateFormProps> = ({
                 name={field.name}
                 value={formData[field.name]}
                 onChange={handleChange}
-                placeholder={field.name.replace(/-/g, " ")}
+                placeholder={field.label}
                 onFocus={(e) =>
                   field.type === "date" && (e.target.type = "date")
                 }

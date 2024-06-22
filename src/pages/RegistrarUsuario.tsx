@@ -6,19 +6,20 @@ export default function RegistrarUsuario() {
   const { data, isEdit } = location.state || {};
 
   const fields = [
-    { name: "Nombre de la finca", type: "text" },
-    { name: "Marca", type: "file" },
-    { name: "Cedula de ciudadania", type: "number" },
-    { name: "Licencia de conduccion", type: "number" },
-    { name: "Identificacino del ICA", type: "number" },
-    { name: "Rol", type: "select", options: ["A", "B"] },
-    { name: "Nombre", type: "text" },
-    { name: "Apellido", type: "text" },
-    { name: "Correo electronico", type: "email" },
-    { name: "Fecha de nacimiento", type: "date" },
-    { name: "Contraseña", type: "password" },
-    { name: "Confirmar contraseña", type: "password" },
+    { name: "fincaName", label: "Nombre de la finca", type: "text" },
+    { name: "brand", label: "Marca", type: "file" },
+    { name: "citizenshipID", label: "Cedula de ciudadania", type: "number" },
+    { name: "drivingLicense", label: "Licencia de conduccion", type: "number" },
+    { name: "ICAID", label: "Identificacino del ICA", type: "number" },
+    { name: "role", label: "Rol", type: "select", options: ["A", "B"] },
+    { name: "firstName", label: "Nombre", type: "text" },
+    { name: "lastName", label: "Apellido", type: "text" },
+    { name: "email", label: "Correo electronico", type: "email" },
+    { name: "birthDate", label: "Fecha de nacimiento", type: "date" },
+    { name: "password", label: "Contraseña", type: "password" },
+    { name: "confirmPassword", label: "Confirmar contraseña", type: "password" },
   ];
+  
   return (
     <Create
       fieldConfigurations={fields}
