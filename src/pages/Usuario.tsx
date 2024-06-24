@@ -39,6 +39,16 @@ export default function Usuario() {
     };
   });
 
+  let editData = null;
+  if (data != null) {
+    editData = data.map((item) => {
+      return {
+        ...item,
+        password: null,
+      };
+    });
+  }
+
   return (
     <>
       {showNotification && (
@@ -47,7 +57,12 @@ export default function Usuario() {
           color={notificationMessage.color}
         />
       )}
-      <Table data={dataTable} link={"/registrar-usuario"} del="" />
+      <Table
+        fullData={editData ? editData : []}
+        data={dataTable}
+        link={"/registrar-usuario"}
+        del=""
+      />
     </>
   );
 }

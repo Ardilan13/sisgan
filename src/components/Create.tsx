@@ -14,6 +14,7 @@ interface FieldConfiguration {
 interface CreateFormProps {
   fieldConfigurations: FieldConfiguration[];
   endpoint: string;
+  update: string;
   initialData?: { [key: string]: any };
   isEdit?: boolean;
 }
@@ -21,6 +22,7 @@ interface CreateFormProps {
 const CreateForm: React.FC<CreateFormProps> = ({
   fieldConfigurations,
   endpoint,
+  update,
   initialData = {},
   isEdit = false,
 }) => {
@@ -62,12 +64,11 @@ const CreateForm: React.FC<CreateFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form data:", formData);
     setLoading(true);
     try {
       const response = isEdit
-        ? await ApiService.put(`${endpoint}/${formData.id}`, formData)
-        : await ApiService.post(endpoint, formData);
+        ? await ApiService.put(`${update}/${formData.id}`, formData)
+        : await ApiService.post(update, formData);
       console.log("Response:", response);
       setNotificationMessage({
         message: "Operation successful!",

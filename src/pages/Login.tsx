@@ -17,8 +17,6 @@ export default function Login() {
   });
 
   const handleLogin = async () => {
-    // const fakeResponse = { token: "fakeToken" };
-
     setLoading(true);
     try {
       const response = await ApiService.post("/auth/login", {

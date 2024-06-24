@@ -26,8 +26,18 @@ export default function Ganado() {
     return <Loading />;
   }
 
-  const dataTable = data ? data : [];
-  console.log(data);
+  let dataTable = data ? data : [];
+  dataTable = dataTable.map((item) => {
+    return {
+      id: item.id,
+      raza: item.breed,
+      sexo: item.sex,
+      "fecha de nacimiento": item.birthDate,
+      peso: item.weight,
+      altura: item.height,
+      lote: item.lotId,
+    };
+  });
 
   return (
     <div>
@@ -38,6 +48,7 @@ export default function Ganado() {
         />
       )}
       <Table
+        fullData={data ? data : []}
         data={dataTable}
         link={"/registrar-ganado"}
         del={"/cattle/delete"}

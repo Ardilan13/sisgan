@@ -6,9 +6,9 @@ export default function RegistrarUsuario() {
   const { data, isEdit } = location.state || {};
 
   const fields = [
-    { name: "fincaName", label: "Nombre de la finca", type: "text" },
-    { name: "brand", label: "Marca", type: "file" },
-    { name: "citizenshipID", label: "Cedula de ciudadania", type: "number" },
+    { name: "farmName", label: "Nombre de la finca", type: "text" },
+    { name: "mark", label: "Marca", type: "file" },
+    { name: "idCard", label: "Cedula de ciudadania", type: "number" },
     { name: "drivingLicense", label: "Licencia de conduccion", type: "number" },
     { name: "ICAID", label: "Identificacino del ICA", type: "number" },
     {
@@ -37,6 +37,7 @@ export default function RegistrarUsuario() {
     <Create
       fieldConfigurations={fields}
       endpoint={"/usuario/registrar"}
+      update="/usuario/actualizar"
       initialData={data}
       isEdit={isEdit}
     />
