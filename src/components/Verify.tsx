@@ -12,7 +12,7 @@ export default function Verify() {
   }, [navigate]);
 
   const checkAuthentication = () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     return !!token;
   };
 
