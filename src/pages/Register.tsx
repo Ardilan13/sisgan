@@ -48,8 +48,6 @@ export default function Register() {
     const {
       farmName,
       idCard,
-      idDrivingLicense,
-      idCardIca,
       role,
       firstName,
       lastName,
@@ -61,8 +59,6 @@ export default function Register() {
     if (
       !farmName ||
       !idCard ||
-      !idDrivingLicense ||
-      !idCardIca ||
       !role ||
       !firstName ||
       !lastName ||
@@ -78,6 +74,21 @@ export default function Register() {
       setAlert("Las contraseñas no coinciden");
       return;
     }
+
+    switch (role) {
+      case "ICA":
+        setFormData({ ...formData, idDrivingLicense: "" });
+        break;
+      case "PROPIETARY":
+        setFormData({ ...formData, idDrivingLicense: "", idCardIca: "" });
+        break;
+      case "TRANSPORTER":
+        setFormData({ ...formData, idCard: "", idCardIca: "" });
+        break;
+      default:
+        break;
+    }
+    console.log(formData);
 
     setLoading(true);
     try {
@@ -159,32 +170,6 @@ export default function Register() {
           <hr className="bg-secondary-100 w-full h-0.5" />
           <p>Datos de Identificacion</p>
           <div className="w-full flex gap-6">
-            <input
-              className="w-full py-2 px-6 rounded-md bg-secondary-100"
-              type="number"
-              name="idCard"
-              value={formData.idCard}
-              placeholder="Cédula de ciudadanía"
-              onChange={handleInputChange}
-            />
-            <input
-              className="w-full py-2 px-6 rounded-md bg-secondary-100"
-              type="number"
-              name="idDrivingLicense"
-              value={formData.idDrivingLicense}
-              placeholder="Licencia de conducción"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="w-full flex gap-6">
-            <input
-              className="w-full py-2 px-6 rounded-md bg-secondary-100"
-              type="text"
-              name="idCardIca"
-              value={formData.idCardIca}
-              placeholder="Identificación del ICA"
-              onChange={handleInputChange}
-            />
             <select
               className="w-full py-2 px-6 rounded-md bg-secondary-100"
               name="role"
@@ -198,6 +183,37 @@ export default function Register() {
               <option value="TRANSPORTER">TRANSPORTER</option>
               <option value="PROPIETARY">PROPIETARY</option>
             </select>
+            <input
+              className="w-full py-2 px-6 rounded-md bg-secondary-100"
+              type="number"
+              name="idCard"
+              value={formData.idCard}
+              placeholder="Cédula de ciudadanía"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="w-full flex gap-6">
+            {formData.role === "ICA" ? (
+              <input
+                className="w-full py-2 px-6 rounded-md bg-secondary-100"
+                type="text"
+                name="idCardIca"
+                value={formData.idCardIca}
+                placeholder="Identificación del ICA"
+                onChange={handleInputChange}
+              />
+            ) : formData.role === "PROPIETARY" ? (
+              <></>
+            ) : (
+              <input
+                className="w-full py-2 px-6 rounded-md bg-secondary-100"
+                type="number"
+                name="idDrivingLicense"
+                value={formData.idDrivingLicense}
+                placeholder="Licencia de conducción"
+                onChange={handleInputChange}
+              />
+            )}
           </div>
           <hr className="bg-secondary-100 w-full h-0.5" />
           <p>Datos personales</p>
