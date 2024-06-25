@@ -69,11 +69,12 @@ const CreateForm: React.FC<CreateFormProps> = ({
       const response = isEdit
         ? await ApiService.put(`${update}/${formData.id}`, formData)
         : await ApiService.post(update, formData);
-      console.log("Response:", response);
-      setNotificationMessage({
-        message: "Operation successful!",
-        color: "success",
-      });
+      if (response) {
+        setNotificationMessage({
+          message: "Operation successful!",
+          color: "success",
+        });
+      }
     } catch (error) {
       setNotificationMessage({
         message: "An error occurred: " + error,

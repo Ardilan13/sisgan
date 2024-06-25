@@ -53,9 +53,7 @@ export default function Table({
 
   const handleEdit = (rowData: string) => {
     const row = fullData.find((item) => item.id === rowData);
-    console.log(row);
     navigate(link, { state: { data: row, isEdit: true } });
-    // navigate(link, { state: { data: rowData, isEdit: true } });
   };
 
   const handleDelete = (index: number) => {
@@ -141,26 +139,28 @@ export default function Table({
               Eliminar
             </button>
           )}
-          <NavLink
-            to={link}
-            className="px-4 py-1.5 flex items-center gap-2 bg-primary-100 text-white rounded-md hover:bg-primary-300"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          {sessionStorage.getItem("rol") !== "TRANSPORTER" ? (
+            <NavLink
+              to={link}
+              className="px-4 py-1.5 flex items-center gap-2 bg-primary-100 text-white rounded-md hover:bg-primary-300"
             >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M7 0C7.3866 0 7.7 0.313401 7.7 0.7V6.3H13.3C13.6866 6.3 14 6.6134 14 7C14 7.3866 13.6866 7.7 13.3 7.7H7.7V13.3C7.7 13.6866 7.3866 14 7 14C6.6134 14 6.3 13.6866 6.3 13.3V7.7H0.7C0.313401 7.7 0 7.3866 0 7C0 6.6134 0.313401 6.3 0.7 6.3H6.3V0.7C6.3 0.313401 6.6134 0 7 0Z"
-                fill="white"
-              />
-            </svg>
-            Añadir
-          </NavLink>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M7 0C7.3866 0 7.7 0.313401 7.7 0.7V6.3H13.3C13.6866 6.3 14 6.6134 14 7C14 7.3866 13.6866 7.7 13.3 7.7H7.7V13.3C7.7 13.6866 7.3866 14 7 14C6.6134 14 6.3 13.6866 6.3 13.3V7.7H0.7C0.313401 7.7 0 7.3866 0 7C0 6.6134 0.313401 6.3 0.7 6.3H6.3V0.7C6.3 0.313401 6.6134 0 7 0Z"
+                  fill="white"
+                />
+              </svg>
+              Añadir
+            </NavLink>
+          ) : null}
         </div>
       </div>
       {paginatedData.length === 0 ? (
@@ -171,13 +171,15 @@ export default function Table({
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-base font-bold uppercase tracking-wider">
-                    <input
-                      type="checkbox"
-                      checked={allSelected}
-                      onChange={toggleSelectAll}
-                    />
-                  </th>
+                  {sessionStorage.getItem("rol") !== "TRANSPORTER" ? (
+                    <th className="px-6 py-3 text-left text-base font-bold uppercase tracking-wider">
+                      <input
+                        type="checkbox"
+                        checked={allSelected}
+                        onChange={toggleSelectAll}
+                      />
+                    </th>
+                  ) : null}
                   {headers.map((header) => (
                     <th
                       key={header}
@@ -187,64 +189,70 @@ export default function Table({
                       {header}
                     </th>
                   ))}
-                  <th className="px-6 py-3 text-left text-base font-bold uppercase tracking-wider">
-                    Actions
-                  </th>
+                  {sessionStorage.getItem("rol") !== "TRANSPORTER" ? (
+                    <th className="px-6 py-3 text-left text-base font-bold uppercase tracking-wider">
+                      Actions
+                    </th>
+                  ) : null}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {paginatedData.map((row, rowIndex) => (
                   <tr key={rowIndex} id={row.id}>
-                    <td className="px-6 py-3 whitespace-nowrap">
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.includes(startIndex + rowIndex)}
-                        onChange={() =>
-                          toggleRowSelection(startIndex + rowIndex)
-                        }
-                      />
-                    </td>
+                    {sessionStorage.getItem("rol") !== "TRANSPORTER" ? (
+                      <td className="px-6 py-3 whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          checked={selectedRows.includes(startIndex + rowIndex)}
+                          onChange={() =>
+                            toggleRowSelection(startIndex + rowIndex)
+                          }
+                        />
+                      </td>
+                    ) : null}
                     {headers.map((header) => (
                       <td key={header} className="px-6 py-3 whitespace-nowrap">
                         {renderCellContent(row[header])}
                       </td>
                     ))}
-                    <td className="px-6 py-3 whitespace-nowrap">
-                      <button
-                        onClick={() => handleEdit(row.id)}
-                        className="px-4 py-3 bg-blue text-white rounded-md hover:bg-sky-400 mr-2"
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 12 12"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                    {sessionStorage.getItem("rol") !== "TRANSPORTER" ? (
+                      <td className="px-6 py-3 whitespace-nowrap">
+                        <button
+                          onClick={() => handleEdit(row.id)}
+                          className="px-4 py-3 bg-blue text-white rounded-md hover:bg-sky-400 mr-2"
                         >
-                          <path
-                            d="M0 9.49992V11.9999H2.5L9.87333 4.62659L7.37333 2.12659L0 9.49992ZM11.8067 2.69325C11.8685 2.63158 11.9175 2.55832 11.951 2.47767C11.9844 2.39702 12.0016 2.31057 12.0016 2.22325C12.0016 2.13594 11.9844 2.04949 11.951 1.96884C11.9175 1.88819 11.8685 1.81493 11.8067 1.75325L10.2467 0.193254C10.185 0.131451 10.1117 0.0824196 10.0311 0.0489653C9.95043 0.015511 9.86398 -0.00170898 9.77667 -0.00170898C9.68935 -0.00170898 9.6029 0.015511 9.52225 0.0489653C9.4416 0.0824196 9.36834 0.131451 9.30667 0.193254L8.08667 1.41325L10.5867 3.91325L11.8067 2.69325Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </button>
-                      <button
-                        onClick={() => handleDelete(row.id)}
-                        className="px-4 py-3 bg-red text-white rounded-md hover:bg-rose-400"
-                      >
-                        <svg
-                          width="10"
-                          height="12"
-                          viewBox="0 0 10 12"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M0 9.49992V11.9999H2.5L9.87333 4.62659L7.37333 2.12659L0 9.49992ZM11.8067 2.69325C11.8685 2.63158 11.9175 2.55832 11.951 2.47767C11.9844 2.39702 12.0016 2.31057 12.0016 2.22325C12.0016 2.13594 11.9844 2.04949 11.951 1.96884C11.9175 1.88819 11.8685 1.81493 11.8067 1.75325L10.2467 0.193254C10.185 0.131451 10.1117 0.0824196 10.0311 0.0489653C9.95043 0.015511 9.86398 -0.00170898 9.77667 -0.00170898C9.68935 -0.00170898 9.6029 0.015511 9.52225 0.0489653C9.4416 0.0824196 9.36834 0.131451 9.30667 0.193254L8.08667 1.41325L10.5867 3.91325L11.8067 2.69325Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          onClick={() => handleDelete(row.id)}
+                          className="px-4 py-3 bg-red text-white rounded-md hover:bg-rose-400"
                         >
-                          <path
-                            d="M0.999919 10.6667C0.999919 11.4 1.59992 12 2.33325 12H7.66659C8.39992 12 8.99992 11.4 8.99992 10.6667V2.66667H0.999919V10.6667ZM9.66659 0.666667H7.33325L6.66659 0H3.33325L2.66659 0.666667H0.333252V2H9.66659V0.666667Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </button>
-                    </td>
+                          <svg
+                            width="10"
+                            height="12"
+                            viewBox="0 0 10 12"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M0.999919 10.6667C0.999919 11.4 1.59992 12 2.33325 12H7.66659C8.39992 12 8.99992 11.4 8.99992 10.6667V2.66667H0.999919V10.6667ZM9.66659 0.666667H7.33325L6.66659 0H3.33325L2.66659 0.666667H0.333252V2H9.66659V0.666667Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </button>
+                      </td>
+                    ) : null}
                   </tr>
                 ))}
               </tbody>

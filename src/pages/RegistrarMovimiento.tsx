@@ -32,7 +32,7 @@ export default function RegistrarMovimiento() {
     <Create
       fieldConfigurations={fields}
       endpoint={"/internal-movement-guide"}
-      update="/internal-movement-guide"
+      update="/internal-movement-guide/movement/patch"
       initialData={data}
       isEdit={isEdit}
     />

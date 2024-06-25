@@ -12,6 +12,7 @@ export default function Header() {
 
   const logout = () => {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("rol");
     navigate("/login");
   };
 

@@ -24,6 +24,7 @@ export default function Login() {
         password: password,
       });
       sessionStorage.setItem("token", response.accesToken);
+      sessionStorage.setItem("rol", response.role);
 
       setNotificationMessage({
         message: "Login exitoso.",
