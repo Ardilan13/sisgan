@@ -45,7 +45,7 @@ class ApiService {
     return this.request(endpoint, "PATCH", data);
   }
 
-  public delete(endpoint: string, data: any) {
+  public delete(endpoint: string, data?: any) {
     return this.request(endpoint, "DELETE", data);
   }
 }

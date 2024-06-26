@@ -28,7 +28,7 @@ const CreateForm: React.FC<CreateFormProps> = ({
 }) => {
   const initialFormState = fieldConfigurations.reduce((acc, field) => {
     if (field.type !== "file") {
-      acc[field.name] = initialData[field.name] || "";
+      acc[field.name] = "";
     }
     return acc;
   }, {} as { [key: string]: any });
@@ -40,6 +40,7 @@ const CreateForm: React.FC<CreateFormProps> = ({
     message: "",
     color: "",
   });
+  const [userId, setUserId] = useState(null);
 
   const description =
     "Datos del " + endpoint.split("/")[1].replace(/-/g, " ").toLowerCase();
@@ -53,6 +54,15 @@ const CreateForm: React.FC<CreateFormProps> = ({
         ...formData,
         [name]: value,
         transporter: { id: value },
+      });
+      return;
+    } else if (name === "lotName") {
+      setFormData({
+        ...formData,
+        [name]: value,
+        userId: userId,
+        creationDate: new Date().toISOString().split("T")[0],
+        lastModificationDate: new Date().toISOString().split("T")[0],
       });
       return;
     }
@@ -96,6 +106,19 @@ const CreateForm: React.FC<CreateFormProps> = ({
     }
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await ApiService.get("/propietary");
+        setUserId(response.id);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   if (loading) {
     return <Loading />;
   }
@@ -124,6 +147,7 @@ const CreateForm: React.FC<CreateFormProps> = ({
                 onChange={
                   handleChange as unknown as React.ChangeEventHandler<HTMLSelectElement>
                 }
+                required
                 className="w-full py-2 px-6 rounded-md bg-secondary-100"
               >
                 <option value="" disabled>

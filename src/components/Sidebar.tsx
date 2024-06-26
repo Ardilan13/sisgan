@@ -53,6 +53,87 @@ export default function Sidebar() {
       {sessionStorage.getItem("rol") === "PROPIETARY" ? (
         <>
           <hr className="block bg-secondary-100 h-0.5" />
+          <h3 className="text-secondary-200 font-semibold">Lotes</h3>
+          <NavLink
+            to="/lote"
+            className={({ isActive }) =>
+              isActive
+                ? "flex gap-3 items-center px-4 py-2 rounded-md bg-primary-200 text-primary-300 font-semibold"
+                : "flex gap-3 items-center px-4 py-2 rounded-md hover:bg-gray-200"
+            }
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7 6C7 5.44772 7.44772 5 8 5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H8C7.44772 7 7 6.55228 7 6Z"
+                fill="#276749"
+              />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7 12C7 11.4477 7.44772 11 8 11H21C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13H8C7.44772 13 7 12.5523 7 12Z"
+                fill="#276749"
+              />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M7 18C7 17.4477 7.44772 17 8 17H21C21.5523 17 22 17.4477 22 18C22 18.5523 21.5523 19 21 19H8C7.44772 19 7 18.5523 7 18Z"
+                fill="#276749"
+              />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M2 6C2 5.44772 2.44772 5 3 5H3.01C3.56228 5 4.01 5.44772 4.01 6C4.01 6.55228 3.56228 7 3.01 7H3C2.44772 7 2 6.55228 2 6Z"
+                fill="#276749"
+              />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M2 12C2 11.4477 2.44772 11 3 11H3.01C3.56228 11 4.01 11.4477 4.01 12C4.01 12.5523 3.56228 13 3.01 13H3C2.44772 13 2 12.5523 2 12Z"
+                fill="#276749"
+              />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M2 18C2 17.4477 2.44772 17 3 17H3.01C3.56228 17 4.01 17.4477 4.01 18C4.01 18.5523 3.56228 19 3.01 19H3C2.44772 19 2 18.5523 2 18Z"
+                fill="#276749"
+              />
+            </svg>
+            <label className="cursor-pointer">Listar Lotes</label>
+          </NavLink>
+          <NavLink
+            to="/registrar-lote"
+            className={({ isActive }) =>
+              isActive
+                ? "flex gap-3 items-center px-4 py-2 rounded-md bg-primary-200 text-primary-300 font-semibold"
+                : "flex gap-3 items-center px-4 py-2 rounded-md hover:bg-gray-200"
+            }
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 0.25C4.62391 0.25 0.25 4.62391 0.25 10C0.25 15.3761 4.62391 19.75 10 19.75C15.3761 19.75 19.75 15.3761 19.75 10C19.75 4.62391 15.3761 0.25 10 0.25ZM13.75 10.75H10.75V13.75C10.75 13.9489 10.671 14.1397 10.5303 14.2803C10.3897 14.421 10.1989 14.5 10 14.5C9.80109 14.5 9.61032 14.421 9.46967 14.2803C9.32902 14.1397 9.25 13.9489 9.25 13.75V10.75H6.25C6.05109 10.75 5.86032 10.671 5.71967 10.5303C5.57902 10.3897 5.5 10.1989 5.5 10C5.5 9.80109 5.57902 9.61032 5.71967 9.46967C5.86032 9.32902 6.05109 9.25 6.25 9.25H9.25V6.25C9.25 6.05109 9.32902 5.86032 9.46967 5.71967C9.61032 5.57902 9.80109 5.5 10 5.5C10.1989 5.5 10.3897 5.57902 10.5303 5.71967C10.671 5.86032 10.75 6.05109 10.75 6.25V9.25H13.75C13.9489 9.25 14.1397 9.32902 14.2803 9.46967C14.421 9.61032 14.5 9.80109 14.5 10C14.5 10.1989 14.421 10.3897 14.2803 10.5303C14.1397 10.671 13.9489 10.75 13.75 10.75Z"
+                fill="#2D3748"
+              />
+            </svg>
+
+            <label className="cursor-pointer">Registrar Lote</label>
+          </NavLink>
+
+          <hr className="block bg-secondary-100 h-0.5" />
+
           <h3 className="text-secondary-200 font-semibold">Ganado</h3>
           <NavLink
             to="/ganado"
@@ -218,7 +299,6 @@ export default function Sidebar() {
       <hr className="block bg-secondary-100 h-0.5" />
       {sessionStorage.getItem("rol") === "ICA" ? (
         <>
-          {" "}
           <h3 className="text-secondary-200 font-semibold">Administrador</h3>
           <NavLink
             to="/usuario"

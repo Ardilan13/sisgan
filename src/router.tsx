@@ -7,9 +7,11 @@ import Info from "./layout/Info";
 import Ganado from "./pages/Ganado";
 import Movimiento from "./pages/Movimiento";
 import Usuario from "./pages/Usuario";
+import Lote from "./pages/Lote";
 import RegistrarGanado from "./pages/RegistrarGanado";
 import RegistrarMovimiento from "./pages/RegistrarMovimiento";
 import RegistrarUsuario from "./pages/RegistrarUsuario";
+import RegistrarLote from "./pages/RegistrarLote";
 
 export default function AppRouter() {
   return (
@@ -23,12 +25,14 @@ export default function AppRouter() {
             <Route path="/ganado" element={<Ganado />} />
             <Route path="/movimiento" element={<Movimiento />} />
             <Route path="/usuario" element={<Usuario />} />
+            <Route path="/lote" element={<Lote />} />
             <Route path="/registrar-ganado" element={<RegistrarGanado />} />
             <Route path="/registrar-usuario" element={<RegistrarUsuario />} />
             <Route
               path="/registrar-movimiento"
               element={<RegistrarMovimiento />}
             />
+            <Route path="/registrar-lote" element={<RegistrarLote />} />
           </Route>
         </Route>
       </Routes>

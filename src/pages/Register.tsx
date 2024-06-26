@@ -88,7 +88,6 @@ export default function Register() {
       default:
         break;
     }
-    console.log(formData);
 
     setLoading(true);
     try {

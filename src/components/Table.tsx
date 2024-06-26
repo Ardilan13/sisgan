@@ -57,13 +57,18 @@ export default function Table({
   };
 
   const handleDelete = (index: number) => {
-    ApiService.delete(`${del}`, [{ id: index }])
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const deleteIndex =
+      link === "/registrar-lote"
+        ? ApiService.delete(`${del}/${index}`)
+        : ApiService.delete(`${del}`, [{ id: index }]);
+    if (deleteIndex)
+      deleteIndex
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     const tr = document.getElementById(index.toString());
     if (tr) {
       tr.remove();
