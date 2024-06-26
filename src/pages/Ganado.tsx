@@ -5,7 +5,7 @@ import Table from "../components/Table";
 import Notification from "../components/Notification";
 
 export default function Ganado() {
-  const { data, loading, error } = FetchData("/cattle/all");
+  const { data, loading, error } = FetchData("/cattle");
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState({
     message: "",

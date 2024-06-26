@@ -50,10 +50,9 @@ export default function Sidebar() {
         </svg>
         <label className="cursor-pointer">Inicio</label>
       </NavLink>
-      <hr className="block bg-secondary-100 h-0.5" />
-      {sessionStorage.getItem("rol") === "PROPIETARY" ||
-      sessionStorage.getItem("rol") === "ICA" ? (
+      {sessionStorage.getItem("rol") === "PROPIETARY" ? (
         <>
+          <hr className="block bg-secondary-100 h-0.5" />
           <h3 className="text-secondary-200 font-semibold">Ganado</h3>
           <NavLink
             to="/ganado"

@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import ApiService from "../api/ApiService";
 import { useState, useEffect } from "react";
 
-// Define the type for a lot
 interface Lot {
   id: string;
   lotName: string;
@@ -19,7 +18,7 @@ export default function RegistrarGanado() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await ApiService.get("/lots/all");
+        const response = await ApiService.get("/lots");
         setLots(response);
       } catch (error) {
         console.error("Error fetching lots data:", error);
